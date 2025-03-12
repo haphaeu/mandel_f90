@@ -1,0 +1,41 @@
+      PROGRAM BRKMTF
+!     GENERATE FIGURE FROM BROOKS-MATELSKI PAPER C.1978
+!     THAT EVENTUALLY BECAME KNOWN AS THE MANDELBROT SET
+!     - SCRUSS, 2022-05
+!     REF: BROOKS, ROBERT, AND J. PETER MATELSKI.
+!     "THE DYNAMICS OF 2-GENERATOR SUBGROUPS OF PSL (2, C)."
+!     RIEMANN SURFACES AND RELATED TOPICS: PROCEEDINGS OF THE
+!     1978 STONY BROOK CONFERENCE,
+!     ANN. OF MATH. STUD. VOL. 97. 1981: FIG. 2, P. 81
+ 
+      REAL MAP, CR, CI
+      INTEGER I, J, K, M, ROWS, COLS, MAXIT
+      COMPLEX C, Z
+      PARAMETER (ROWS=31, COLS=71, MAXIT=200)
+      CHARACTER*80 OUT
+      CHARACTER CH*1
+ 
+      DO J=1,ROWS
+         CI=MAP(REAL(J), 1.0, REAL(ROWS), -0.8715, 0.8715)
+         DO I=1,COLS
+            CR=MAP(REAL(I), 1.0, REAL(COLS), -1.975, 0.475)
+            C=CMPLX(CR, CI)
+            Z=CMPLX(0.0, 0.0)
+            CH='*'
+            DO 100, K=1,MAXIT
+               Z = Z**2 + C
+               IF (ABS(Z) .GT. 2) THEN
+                  CH=' '
+                  GO TO 101
+               END IF
+ 100        CONTINUE
+ 101        OUT(I:I)=CH
+         END DO
+         WRITE(*,*)OUT
+      END DO
+      END
+ 
+      REAL FUNCTION MAP(X, XMIN, XMAX, YMIN, YMAX)
+      REAL X, XMIN, XMAX, YMIN, YMAX
+      MAP = YMIN + (YMAX - YMIN) * ((X - XMIN) / (XMAX - XMIN))
+      END
