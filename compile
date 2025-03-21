@@ -1,2 +1,3 @@
-export OMP_NUM_THREADS=64
+# not needed since requesting num threads in omp
+#export OMP_NUM_THREADS=64
 gfortran -fopenmp -O3 -o mandel2 mandel2.f90

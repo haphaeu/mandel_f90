@@ -58,9 +58,9 @@ contains
     stepy = ( ymax - ymin ) / ny
     stepx = ( xmax - xmin ) / nx
 
-!    !$ if( omp_get_thread_num() == 0 ) then
-!    !$    write( *, * ) 'On ', omp_get_num_threads(), ' threads'
-!    !$ end if
+    !$ if( omp_get_thread_num() == 0 ) then
+    !$    write( *, * ) 'On ', omp_get_num_threads(), ' threads'
+    !$ end if
     
     !$omp do collapse(2) schedule(dynamic)
     do ix=0,nx
